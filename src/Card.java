@@ -49,6 +49,30 @@ public class Card {
         return color + " " + shape + " " + filling + " " + number;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Card other = (Card) o;
+        return color == other.color &&
+                shape == other.shape &&
+                filling == other.filling &&
+                number == other.number;
+    }
+
+    public static boolean isSet(Card firstCard, Card secondCard, Card thirdCard) {
+        return allSameOrAllDifferent(firstCard.color, secondCard.color, thirdCard.color) &&
+                allSameOrAllDifferent(firstCard.shape, secondCard.shape, thirdCard.shape) &&
+                allSameOrAllDifferent(firstCard.filling, secondCard.filling, thirdCard.filling) &&
+                allSameOrAllDifferent(firstCard.number, secondCard.number, thirdCard.number);
+    }
+
+    private static <T> boolean allSameOrAllDifferent(T a, T b, T c) {
+        return (a.equals(b) && b.equals(c)) || (!a.equals(b) && !b.equals(c));
+    }
+
     /* Testing
     public static void main(String[] args) {
         Card card = new Card(Color.PURPLE, Shape.OVAL, Filling.STRIPED, Number.ONE);
