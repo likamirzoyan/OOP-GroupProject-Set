@@ -1,8 +1,3 @@
-import javax.smartcardio.ATR;
-import javax.smartcardio.Card;
-import javax.smartcardio.CardChannel;
-import javax.smartcardio.CardException;
-
 public class Deck {
     private Card[] cards;
     private int currentCard;
@@ -33,9 +28,6 @@ public class Deck {
             cards[i] = cards[randomIndex];
             cards[randomIndex] = temp;
         }
-    }
-
-    public Card drawCard() {
     }
 
     public boolean isEmpty() {
