@@ -22,13 +22,18 @@ public class Board {
     }
 
     public Card[] getCards() {
-        return cards;
+        Card[] copy = new Card[cards.length];
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i] != null)
+                copy[i] = new Card(cards[i]);
+        }
+        return copy;
     }
     public int getCount() {
         return count;
     }
     public Card[][] getValidSets() {
-        return validSet;
+        //TODO: make sure if we need this instance variable, then define later
     }
 
     public void addCards(Card...newCards) {
@@ -41,6 +46,7 @@ public class Board {
             }
         }
     }
+    //TODO: ArrayList<Card> name = ArrayList<>[];
 
     public void setValidSets(Card[][] validSet) {
         this.validSet = validSet;

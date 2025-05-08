@@ -1,8 +1,3 @@
-import javax.smartcardio.ATR;
-import javax.smartcardio.Card;
-import javax.smartcardio.CardChannel;
-import javax.smartcardio.CardException;
-
 public class Deck {
     private Card[] cards;
     private int currentCard;
@@ -36,6 +31,11 @@ public class Deck {
     }
 
     public Card drawCard() {
+        if (currentCard < cards.length) {
+            return cards[currentCard++];
+        } else {
+            return null;
+        }
     }
 
     public boolean isEmpty() {
