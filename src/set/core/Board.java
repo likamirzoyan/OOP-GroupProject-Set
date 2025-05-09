@@ -121,7 +121,6 @@ public class Board {
 
         return result;
     }
-    //TODO: define getAllValidSets()
 }
 
 

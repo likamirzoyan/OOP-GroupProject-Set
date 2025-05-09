@@ -6,6 +6,10 @@ public class HumanPlayer extends Player {
         super(name);
     }
 
+    public HumanPlayer(HumanPlayer other) {
+        super(other.name);
+    }
+
     @Override
     public void play(Board board) {
         // GUI handles this — human will click cards manually

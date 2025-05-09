@@ -13,6 +13,12 @@ public class AIPlayer extends Player implements Runnable {
         this.gui = gui;
     }
 
+    public AIPlayer(AIPlayer other) {
+        super(other.name);
+        this.board = new Board(other.board);
+        this.gui = null; // GUI will be assigned later
+    }
+
     @Override
     public void run() {
         try {
@@ -21,6 +27,10 @@ public class AIPlayer extends Player implements Runnable {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    public void setGUI(GameGUI gui) {
+        this.gui = gui;
     }
 
     public void stop() {
