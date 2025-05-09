@@ -53,6 +53,10 @@ public class Deck {
             return null;
     }
 
+    public boolean canDraw(int n) {
+        return n % 3 == 0 && getRemainingCount() >= n;
+    }
+
     /**
      * Returns the number of cards remaining in the deck that have not been drawn yet
      *
@@ -81,7 +85,6 @@ public class Deck {
 
     public void reset() {
         currentCard = 0;
-        shuffle();
     }
 
     public boolean isEmpty() {

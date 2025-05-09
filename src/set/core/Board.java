@@ -66,6 +66,10 @@ public class Board {
         }
     }
 
+    public void removeCardsByIndex(int i, int j, int k) throws NotValidSetFoundException {
+        removeCards(cards[i], cards[j], cards[k]);
+    }
+
     public boolean isValidSet(Card firstCard, Card secondCard, Card thirdCard) {
         return Card.isSet(firstCard, secondCard, thirdCard);
     }
@@ -93,6 +97,13 @@ public class Board {
                 return cardsLeftInDeck == 0; // if deck is empty and no valid set -> can't add cards -> the deck is not full
         }
         return count == 15; // maximum cards on the board
+    }
+
+    public void clear() {
+        for (int i = 0; i < count; i++)
+            cards[i] = null;
+
+        count = 0;
     }
 
     @Override
