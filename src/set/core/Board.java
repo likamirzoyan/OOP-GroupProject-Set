@@ -49,18 +49,18 @@ public class Board {
         Card[] set = {firstCard, secondCard, thirdCard};
 
         for (Card card : set) {
-            boolean found = false;
+            boolean removed = false;
 
             for (int i = 0; i < count; i++) {
                 if (cards[i] != null && cards[i].equals(card)) {
                     cards[i] = cards[count - 1];
                     cards[count - 1] = null;
                     count--;
-                    found = true;
+                    removed = true;
                     break;
                 }
             }
-            if (!found) {
+            if (removed) {
                 throw new NotValidSetFoundException("set.core.Card " + card + " was not found on the board.");
             }
         }
