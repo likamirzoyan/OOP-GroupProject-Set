@@ -75,6 +75,10 @@ public class Card {
         return (a.equals(b) && b.equals(c)) || (!a.equals(b) && !b.equals(c));
     }
 
+    public String getImagePath() {
+        return "images/" + color + "_" + shape + "_" + filling + "_" + number + ".png";
+    }
+
     /* Testing
     public static void main(String[] args) {
         set.core.Card card = new set.core.Card(Color.PURPLE, Shape.OVAL, Filling.STRIPED, Number.ONE);

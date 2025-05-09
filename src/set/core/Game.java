@@ -65,4 +65,10 @@ public class Game {
     public boolean isGameOver() {
         return deck.isEmpty() && !board.hasValidSet();
     }
+
+    public void setGUIForAI(set.gui.GameGUI gui) {
+        if (ai != null) {
+            ai.setGUI(gui);
+        }
+    }
 }
