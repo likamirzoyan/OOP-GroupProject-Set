@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.net.URL;
 
 public class GameGUI {
     private JFrame frame;
@@ -80,31 +81,37 @@ public class GameGUI {
 
         for (Card card : cards) {
             String imagePath = card.getImagePath();
-            ImageIcon icon = new ImageIcon(imagePath);
-            Image scaled = icon.getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH);
-            JButton btn = new JButton(new ImageIcon(scaled));
+            URL imageUrl = getClass().getClassLoader().getResource(imagePath);
 
-            btn.addActionListener(e -> {
-                selectedCards.add(card);
-                btn.setBackground(Color.YELLOW);
+            if (imageUrl != null) {
+                ImageIcon icon = new ImageIcon(imageUrl);
+                Image scaled = icon.getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH);
+                JButton btn = new JButton(new ImageIcon(scaled));
 
-                if (selectedCards.size() == 3) {
-                    try {
-                        board.removeCards(
-                                selectedCards.get(0),
-                                selectedCards.get(1),
-                                selectedCards.get(2));
-                        human.increaseScore();
-                        board.addCards(deck.drawCards(3));
-                    } catch (NotValidSetFoundException ex) {
-                        JOptionPane.showMessageDialog(frame, ex.getMessage());
-                    }
-                    selectedCards.clear();
-                    drawBoard();
-                    updateScores();
-                }
-            });
-            boardPanel.add(btn);
+                btn.addActionListener(e -> {
+                    selectedCards.add(card);
+                    btn.setBackground(Color.YELLOW);
+
+                    if (selectedCards.size() == 3) {
+                        try {
+                            board.removeCards(
+                                    selectedCards.get(0),
+                                    selectedCards.get(1),
+                                    selectedCards.get(2));
+                            human.increaseScore();
+                            board.addCards(deck.drawCards(3));
+                        } catch (NotValidSetFoundException ex) {
+                            JOptionPane.showMessageDialog(frame, ex.getMessage());
+                        }
+                        selectedCards.clear();
+                        drawBoard();
+                        updateScores();
+                            }
+                        });
+                boardPanel.add(btn);
+            } else {
+                System.err.println("Image not found: " + imagePath);
+            }
         }
 
         boardPanel.revalidate();
