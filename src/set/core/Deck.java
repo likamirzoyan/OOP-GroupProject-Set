@@ -1,7 +1,6 @@
-import javax.smartcardio.ATR;
+package set.core;
+
 import javax.smartcardio.Card;
-import javax.smartcardio.CardChannel;
-import javax.smartcardio.CardException;
 
 public class Deck {
     private Card[] cards;

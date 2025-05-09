@@ -1,3 +1,5 @@
+package set.core;
+
 public class NotValidSetFoundException extends Exception {
     public NotValidSetFoundException() {
         super("Valid set not found");

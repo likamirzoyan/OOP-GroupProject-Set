@@ -1,3 +1,5 @@
+package set.core;
+
 public class Board {
     // the cards on the board
     private Card[] cards;
@@ -33,7 +35,7 @@ public class Board {
             if(count < cards.length)
                 cards[count++] = card;
             else {
-                System.out.println("Board is full, can not add more cards.");
+                System.out.println("set.core.Board is full, can not add more cards.");
                 break;
             }
         }
@@ -59,7 +61,7 @@ public class Board {
                 }
             }
             if (!found) {
-                throw new NotValidSetFoundException("Card " + card + " was not found on the board.");
+                throw new NotValidSetFoundException("set.core.Card " + card + " was not found on the board.");
             }
         }
     }
@@ -95,7 +97,7 @@ public class Board {
 
     @Override
     public String toString() {
-        String result = "Board:\n";
+        String result = "set.core.Board:\n";
 
         for (int i = 0; i < count; i++)
             result = result + "[" + i + "]" + cards[i] + "\n";

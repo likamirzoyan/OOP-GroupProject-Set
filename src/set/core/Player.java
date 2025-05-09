@@ -1,3 +1,5 @@
+package set.core;
+
 public class Player extends Person {
     private int score;
 
@@ -21,7 +23,7 @@ public class Player extends Person {
 
     @Override
     public void printInfo() {
-        System.out.println("Player: " + name);
+        System.out.println("set.core.Player: " + name);
         System.out.println("Score: " + score);
     }
 }

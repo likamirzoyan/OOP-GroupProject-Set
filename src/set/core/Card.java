@@ -1,3 +1,5 @@
+package set.core;
+
 public class Card {
     private Color color;
     private Shape shape;
@@ -75,7 +77,7 @@ public class Card {
 
     /* Testing
     public static void main(String[] args) {
-        Card card = new Card(Color.PURPLE, Shape.OVAL, Filling.STRIPED, Number.ONE);
+        set.core.Card card = new set.core.Card(Color.PURPLE, Shape.OVAL, Filling.STRIPED, Number.ONE);
         System.out.println(card.shape);
     }*/
 }

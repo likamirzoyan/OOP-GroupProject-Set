@@ -1,3 +1,5 @@
+package set.core;
+
 public class Game {
     private Player[] players;
     private Player player;

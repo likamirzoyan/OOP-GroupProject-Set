@@ -1,3 +1,5 @@
+package set.core;
+
 public abstract class Person {
     protected String name;
 
