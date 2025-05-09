@@ -66,6 +66,10 @@ public class Board {
         }
     }
 
+    public void removeCardsByIndex(int i, int j, int k) throws NotValidSetFoundException {
+        removeCards(cards[i], cards[j], cards[k]);
+    }
+
     public boolean isValidSet(Card firstCard, Card secondCard, Card thirdCard) {
         return Card.isSet(firstCard, secondCard, thirdCard);
     }
@@ -95,6 +99,13 @@ public class Board {
         return count == 15; // maximum cards on the board
     }
 
+    public void clear() {
+        for (int i = 0; i < count; i++)
+            cards[i] = null;
+
+        count = 0;
+    }
+
     @Override
     public String toString() {
         String result = "set.core.Board:\n";
@@ -104,7 +115,7 @@ public class Board {
 
         return result;
     }
-    //TODO: deifine getAllValidSets()
+    //TODO: define getAllValidSets()
 }
 
 

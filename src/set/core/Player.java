@@ -1,16 +1,25 @@
 package set.core;
 
-public class Player extends Person {
-    private int score;
+public abstract class Player {
+    protected String name;
+    protected int score;
 
     public Player(String name) {
-        super(name);
+        this.name = name;
         this.score = 0;
     }
 
     public Player(Player other) {
-        super(other.name);
+        this.name = other.name;
         this.score = other.score;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String newName) {
+        name = newName;
     }
 
     public int getScore() {
@@ -20,6 +29,8 @@ public class Player extends Person {
     public void increaseScore() {
         score++;
     }
+
+    public abstract void play(Board board);
 
     @Override
     public void printInfo() {
