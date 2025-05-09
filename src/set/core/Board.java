@@ -104,7 +104,7 @@ public class Board {
 
         return result;
     }
-    //TODO: deifine getAllValidSets()
+    //TODO: define getAllValidSets()
 }
 
 
