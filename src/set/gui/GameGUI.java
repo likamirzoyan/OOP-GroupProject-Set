@@ -3,7 +3,7 @@ package set.gui;
 import java.awt.Color;
 import javax.swing.*;
 
-public class Frame {
+public class GameGUI {
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setTitle("SET");

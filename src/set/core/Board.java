@@ -43,16 +43,18 @@ public class Board {
 
     // TODO: catch the exception in GUI or main
     public void removeCards(Card firstCard, Card secondCard, Card thirdCard) throws NotValidSetFoundException {
-        if (!isValidSet(firstCard, secondCard, thirdCard))
-            throw new NotValidSetFoundException("The selected cards do not form a valid set.");
+       if (!tryRemoveSet(firstCard, secondCard, thirdCard))
+           throw new NotValidSetFoundException("Set is invalid or cards not on board");
+    }
 
-        Card[] set = {firstCard, secondCard, thirdCard};
-
-        for (Card card : set) {
+    public synchronized boolean tryRemoveSet(Card a, Card b, Card c) {
+        if (!Card.isSet(a, b, c)) return false;
+        Card[] set = {a, b, c};
+        for (Card cardToRemove : set) {
             boolean found = false;
 
             for (int i = 0; i < count; i++) {
-                if (cards[i] != null && cards[i].equals(card)) {
+                if (cards[i] != null && cards[i].equals(cardToRemove)) {
                     cards[i] = cards[count - 1];
                     cards[count - 1] = null;
                     count--;
@@ -60,10 +62,9 @@ public class Board {
                     break;
                 }
             }
-            if (!found) {
-                throw new NotValidSetFoundException("set.core.Card " + card + " was not found on the board.");
-            }
+            if (!found) return false;
         }
+        return true;
     }
 
     public void removeCardsByIndex(int i, int j, int k) throws NotValidSetFoundException {

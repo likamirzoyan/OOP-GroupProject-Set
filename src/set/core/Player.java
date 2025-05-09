@@ -32,7 +32,6 @@ public abstract class Player {
 
     public abstract void play(Board board);
 
-    @Override
     public void printInfo() {
         System.out.println("set.core.Player: " + name);
         System.out.println("Score: " + score);
