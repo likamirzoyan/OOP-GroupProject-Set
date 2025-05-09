@@ -1,34 +1,31 @@
 public class Board {
+    // the cards on the board
     private Card[] cards;
+    // tracks the number of cards currently in play
     private int count;
-    private Card[][] validSet;
 
     public Board(){
-        this.cards = new Card[12];
+        this.cards = new Card[15];
         this.count = 0;
-        this.validSet = new Card[20][3];
     }
 
-    public Board(Board copy){
-        this.cards = new Card[copy.cards.length];
-        for(int i = 0; i < copy.cards.length; i++)
+    public Board(Board copy) {
+        this.cards = new Card[15];
+        for (int i = 0; i < copy.count; i++)
             this.cards[i] = new Card(copy.cards[i]);
         this.count = copy.count;
-        this.validSet = new Card[copy.validSet.length][3];
-        for(int i = 0; i < copy.validSet.length; i++) {
-            for(int j = 0; j < 3; j++)
-                this.validSet[i][j] = new Card(copy.validSet[i][j]);
-        }
     }
 
     public Card[] getCards() {
-        return cards;
+        Card[] copy = new Card[count];
+        for (int i = 0; i < count; i++) {
+            if (cards[i] != null)
+                copy[i] = new Card(cards[i]);
+        }
+        return copy;
     }
     public int getCount() {
         return count;
-    }
-    public Card[][] getValidSets() {
-        return validSet;
     }
 
     public void addCards(Card...newCards) {
@@ -42,10 +39,70 @@ public class Board {
         }
     }
 
-    public void setValidSets(Card[][] validSet) {
-        this.validSet = validSet;
+    // TODO: catch the exception in GUI or main
+    public void removeCards(Card firstCard, Card secondCard, Card thirdCard) throws NotValidSetFoundException {
+        if (!isValidSet(firstCard, secondCard, thirdCard))
+            throw new NotValidSetFoundException("The selected cards do not form a valid set.");
+
+        Card[] set = {firstCard, secondCard, thirdCard};
+
+        for (Card card : set) {
+            boolean found = false;
+
+            for (int i = 0; i < count; i++) {
+                if (cards[i] != null && cards[i].equals(card)) {
+                    cards[i] = cards[count - 1];
+                    cards[count - 1] = null;
+                    count--;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                throw new NotValidSetFoundException("Card " + card + " was not found on the board.");
+            }
+        }
     }
 
+    public boolean isValidSet(Card firstCard, Card secondCard, Card thirdCard) {
+        return Card.isSet(firstCard, secondCard, thirdCard);
+    }
+
+    public boolean hasValidSet() {
+        for (int i = 0; i < count - 2; i++) {
+            for (int j = i + 1; j < count - 1; j++) {
+                for (int k = j + 1; k < count; k++) {
+                    if (isValidSet(cards[i], cards[j], cards[k]))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isFull(int cardsLeftInDeck, boolean hasValidSet) {
+        if (count < 12)
+            return false; // still room to reach 12
+
+        if (count == 12) {
+            if (hasValidSet)
+                return true; // 12 cards on the board and at least 1 valid set -> the board is full
+            else
+                return cardsLeftInDeck == 0; // if deck is empty and no valid set -> can't add cards -> the deck is not full
+        }
+        return count == 15; // maximum cards on the board
+    }
+
+    @Override
+    public String toString() {
+        String result = "Board:\n";
+
+        for (int i = 0; i < count; i++)
+            result = result + "[" + i + "]" + cards[i] + "\n";
+
+        return result;
+    }
+    //TODO: deifine getAllValidSets()
 }
 
 

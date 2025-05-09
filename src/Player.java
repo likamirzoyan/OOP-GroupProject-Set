@@ -7,7 +7,7 @@ public class Player extends Person {
     }
 
     public Player(Player other) {
-        this.name = other.name;
+        super(other.name);
         this.score = other.score;
     }
 
