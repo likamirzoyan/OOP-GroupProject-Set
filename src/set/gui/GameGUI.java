@@ -1,25 +1,43 @@
 package set.gui;
 
 import set.core.*;
+
+import javax.imageio.plugins.jpeg.JPEGImageReadParam;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.net.URL;
 
+/**
+ * The graphical user interface for the SET game
+ */
 public class GameGUI {
+    // the main window frame
     private JFrame frame;
-    private JPanel boardPanel, infoPanel;
-    private JLabel humanLabel, aiLabel;
+    // panel showing the game board
+    private JPanel boardPanel;
+    // panel displaying scores and info
+    private JPanel infoPanel;
+    // label showing the human score
+    private JLabel humanLabel;
+    // label showing the AI score
+    private JLabel aiLabel;
 
+    // the game logic controller
     private Game game;
     private HumanPlayer human;
     private AIPlayer ai;
     private Board board;
     private Deck deck;
+    // the thread the AI runs on
     private Thread aiThread;
+    // stores selected cards during user input
     private ArrayList<Card> selectedCards = new ArrayList<>();
 
+    /**
+     * Initializes GUI and starts the game
+     */
     public GameGUI() {
         boolean withAI = askGameMode();
         game = new Game(withAI);
@@ -39,6 +57,10 @@ public class GameGUI {
         }
     }
 
+    /**
+     * Asks user whether to play with AI
+     * @return true if yes
+     */
     private boolean askGameMode() {
         // Show a simple dialog to the user with 2 buttons
         // The user can choose to play alone or with AI
@@ -55,6 +77,9 @@ public class GameGUI {
 
     }
 
+    /**
+     * Sets up the GUI components
+     */
     private void setupGUI() {
         frame = new JFrame("SET Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,6 +100,9 @@ public class GameGUI {
         frame.setVisible(true);
     }
 
+    /**
+     * Draws the cards and buttons on the board
+     */
     public void drawBoard() {
         boardPanel.removeAll();
         Card[] cards = board.getCards();
@@ -106,8 +134,8 @@ public class GameGUI {
                         selectedCards.clear();
                         drawBoard();
                         updateScores();
-                            }
-                        });
+                    }
+                });
                 boardPanel.add(btn);
             } else {
                 System.err.println("Image not found: " + imagePath);
@@ -118,6 +146,9 @@ public class GameGUI {
         boardPanel.repaint();
     }
 
+    /**
+     * Updates the displayed scores for both players
+     */
     public void updateScores() {
         Runnable updateTask = new Runnable() {
             public void run() {
@@ -130,14 +161,17 @@ public class GameGUI {
         SwingUtilities.invokeLater(updateTask);
     }
 
-public void stopAI() {
-    if (ai != null) {
-        ai.stop();
-        aiThread.interrupt();
+    /**
+     * Stops the AI thread and activity
+     */
+    public void stopAI() {
+        if (ai != null) {
+            ai.stop();
+            aiThread.interrupt();
+        }
     }
-}
 
-public static void main(String[] args) {
-    SwingUtilities.invokeLater(GameGUI::new);
-}
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(GameGUI::new);
+    }
 }

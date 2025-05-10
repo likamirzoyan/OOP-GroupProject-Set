@@ -6,6 +6,9 @@ public class Deck {
     // counter that keeps track of the next card to be drawn from the deck
     private int currentCard;
 
+    /**
+     * Constructs a new full shuffled deck
+     */
     public Deck() {
         cards = new Card[81];
         currentCard = 0;
@@ -23,6 +26,9 @@ public class Deck {
         shuffle();
     }
 
+    /**
+     * Copy constructor
+     */
     public Deck(Deck other) {
         this.cards = new Card[81];
         for (int i = 0; i < other.cards.length; i++) {
@@ -37,6 +43,9 @@ public class Deck {
         return currentCard;
     }
 
+    /**
+     * Shuffles the deck randomly
+     */
     public void shuffle() {
         for (int i = 0; i < cards.length; i++) {
             int randomIndex = (int) (Math.random() * cards.length);
@@ -46,6 +55,10 @@ public class Deck {
         }
     }
 
+    /**
+     * Draws one card to the board
+     * @return one card, or null if deck is empty
+     */
     public Card drawCard() {
         if (currentCard < cards.length)
             return cards[currentCard++];
@@ -53,6 +66,11 @@ public class Deck {
             return null;
     }
 
+    /**
+     * Checks if n cards can be drawn (must be multiple of 3)
+     * @param n the number of cards to draw
+     * @return true if n is multiple of 3 and there are cards left in the deck
+     */
     public boolean canDraw(int n) {
         return n % 3 == 0 && getRemainingCount() >= n;
     }
@@ -83,10 +101,16 @@ public class Deck {
         return cardsToAdd;
     }
 
+    /**
+     * Resets the deck so all cards can be drawn again
+     */
     public void reset() {
         currentCard = 0;
     }
 
+    /**
+     * @return true if deck has no remaining cards
+     */
     public boolean isEmpty() {
         return currentCard >= cards.length;
     }

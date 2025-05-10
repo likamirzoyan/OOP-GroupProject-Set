@@ -1,16 +1,25 @@
 package set.core;
 
+/**
+ * Represents the SET game board which holds up to 15 cards
+ */
 public class Board {
     // the cards on the board
     private Card[] cards;
     // tracks the number of cards currently in play
     private int count;
 
+    /**
+     * Creates an empty board
+     */
     public Board(){
         this.cards = new Card[15];
         this.count = 0;
     }
 
+    /**
+     * Copy constructor
+     */
     public Board(Board copy) {
         this.cards = new Card[15];
         for (int i = 0; i < copy.count; i++)
@@ -30,6 +39,9 @@ public class Board {
         return count;
     }
 
+    /**
+     * Adds cards to the board, up to 15
+     */
     public void addCards(Card...newCards) {
         for(Card card : newCards) {
             if(count < cards.length)
@@ -41,6 +53,13 @@ public class Board {
         }
     }
 
+    /**
+     * Attempts to remove a valid set of 3 cards
+     * @param firstCard first card
+     * @param secondCard second card
+     * @param thirdCard third card
+     * @return true if successful
+     */
     public synchronized boolean tryRemoveSet(Card firstCard, Card secondCard, Card thirdCard) {
         if (!Card.isSet(firstCard, secondCard, thirdCard)) return false;
 
@@ -65,7 +84,13 @@ public class Board {
         return true;
     }
 
-    // TODO: catch the exception in GUI or main
+    /**
+     * Removes cards if they form a valid set
+     * @param firstCard first card
+     * @param secondCard second card
+     * @param thirdCard third card
+     * @throws NotValidSetFoundException if invalid
+     */
     public void removeCards(Card firstCard, Card secondCard, Card thirdCard) throws NotValidSetFoundException {
         if (!tryRemoveSet(firstCard, secondCard, thirdCard))
             throw new NotValidSetFoundException("The selected cards do not form a valid set.");
@@ -80,6 +105,9 @@ public class Board {
         return Card.isSet(firstCard, secondCard, thirdCard);
     }
 
+    /**
+     * @return true if any valid set is on the board
+     */
     public boolean hasValidSet() {
         for (int i = 0; i < count - 2; i++) {
             for (int j = i + 1; j < count - 1; j++) {
@@ -92,6 +120,9 @@ public class Board {
         return false;
     }
 
+    /**
+     * Determines if board is full based on game rules
+     */
     public boolean isFull(int cardsLeftInDeck, boolean hasValidSet) {
         if (count < 12)
             return false; // still room to reach 12
@@ -105,6 +136,9 @@ public class Board {
         return count == 15; // maximum cards on the board
     }
 
+    /**
+     * Removes all cards from the board
+     */
     public void clear() {
         for (int i = 0; i < count; i++)
             cards[i] = null;
@@ -112,6 +146,9 @@ public class Board {
         count = 0;
     }
 
+    /**
+     * @return text representation of the board
+     */
     @Override
     public String toString() {
         String result = "set.core.Board:\n";
